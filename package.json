@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "yaml-cli": "^1.1.8"
+  }
+}
