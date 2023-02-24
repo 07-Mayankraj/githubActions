@@ -1,0 +1,39 @@
+name: Test Workflow
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+
+    - name: Report results
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const result = process.env.JEST_JUNIT_OUTPUT || ''
+          if (result) {
+            const fs = require('fs')
+            const content = fs.readFileSync(result, { encoding: 'utf8' })
+            const lines = content.split(/\r?\n/)
+            const match = lines[0].match(/^<testsuites/)
+              }
+            })
+          } else {
+            console.log('No test results found')
+          }
